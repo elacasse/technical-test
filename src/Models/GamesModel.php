@@ -19,10 +19,10 @@ class GamesModel extends BaseModel
     public function allForDate($date)
     {
         $games = $this->getGamesForDate($date);
-        die();
+
         if (empty($games)) {
             $games = $this->loadFromApi($date);
-            // $this->saveGames($games);
+            $this->saveGames($games);
         }
 
         return $this->loadFromApi($date);
@@ -35,7 +35,7 @@ class GamesModel extends BaseModel
     private function getGamesForDate($date)
     {
         $start = $date . ' 00:00:00';
-        $end   = $date . ' 23:59:59';
+        $end = $date . ' 23:59:59';
 
         $sql = "SELECT
                     away,
