@@ -13,7 +13,7 @@ namespace Services;
 class NHL
 {
     const BASE_URL = 'http://statsapi.web.nhl.com/api';
-    const VERSION  = 'v1';
+    const VERSION = 'v1';
 
     /**
      * Execute a GET call to the API
@@ -45,10 +45,18 @@ class NHL
 
     /**
      * Get all available games for today
+     * @param string|null $date
+     * @return mixed
      */
-    public function getAllGames()
+    public function getAllGames($date = null)
     {
-        $schedule = json_decode($this->get('schedule'));
+        $url = 'schedule';
+
+        if ($date != null) {
+            $url .= '?date=' . $date;
+        }
+
+        $schedule = json_decode($this->get($url));
         return $schedule->dates[0]->games;
     }
 }

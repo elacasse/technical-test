@@ -2,6 +2,7 @@
 
 namespace Entities;
 
+use DateTime;
 use DateTimeZone;
 use stdClass;
 
@@ -13,6 +14,8 @@ class Game
 {
     public $away;
     public $home;
+
+    /** @var DateTime */
     public $start;
     public $venue;
 
@@ -50,6 +53,21 @@ class Game
             'home'  => $gameData->teams->home->team->name,
             'start' => $gameData->gameDate,
             'venue' => $gameData->venue->name,
+        ]);
+    }
+
+    /**
+     * Create a game Entity from API data
+     * @param stdClass $gameData
+     * @return Game
+     */
+    public static function createFromDb($gameData)
+    {
+        return new self([
+            'away'  => null,
+            'home'  => null,
+            'start' => null,
+            'venue' => null,
         ]);
     }
 }

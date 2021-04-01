@@ -23,7 +23,7 @@ class GamesController extends BaseController
 
         $gamesModel = new GamesModel();
 
-        $this->view->games = $gamesModel->all();
+        $this->view->games = $gamesModel->allForDate(date('Y-m-d'));
 
         return $this->displayResults();
     }
