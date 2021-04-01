@@ -23,7 +23,7 @@ class GamesController extends BaseController
 
         $gamesModel = new GamesModel();
 
-        $games      = $gamesModel->all();
+        $this->view->games = $gamesModel->all();
 
         return $this->displayResults();
     }

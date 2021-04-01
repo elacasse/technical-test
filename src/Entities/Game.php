@@ -26,8 +26,10 @@ class Game
         {
             switch (true) {
                 /** @noinspection PhpMissingBreakStatementInspection */
+                /** Deliberate fallthrough */
                 case ($key == 'start' && is_string($value)):
                     $value = date_create_from_format('Y-m-d\TH:i:s\Z', $value, new DateTimeZone('UTC'));
+                    $value->setTimezone(new DateTimeZone(date_default_timezone_get()));
 
                 default:
                     $this->$key = $value;

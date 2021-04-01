@@ -11,13 +11,14 @@ use Entities\Game;
 class GameView extends BaseView
 {
     /** @var Game[] */
-    private $games;
+    public $games;
 
     /**
      * Renders the current view
      */
     public function render()
     {
-        echo 'I\'m the view';
+        $file = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR  . 'game.php';
+        print $this->loadTemplate($file, ['games' => $this->games]);
     }
 }
