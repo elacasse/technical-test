@@ -19,11 +19,12 @@ class GamesModel extends BaseModel
     public function allForDate($date)
     {
         $games = $this->getGamesForDate($date);
-
+        die();
         if (empty($games)) {
             $games = $this->loadFromApi($date);
-            $this->saveGames($games);
+            // $this->saveGames($games);
         }
+
         return $this->loadFromApi($date);
     }
 
@@ -33,28 +34,38 @@ class GamesModel extends BaseModel
      */
     private function getGamesForDate($date)
     {
-        $params = [
-            $date . ' 00:00:00',
-            $date . ' 23:59:59',
-        ];
+        $start = $date . ' 00:00:00';
+        $end   = $date . ' 23:59:59';
 
         $sql = "SELECT
                     away,
                     home,
                     start,
                     venue
+                FROM
+                     games
                 WHERE
                     start BETWEEN ? AND ?;
             
         ";
 
-        $results = $this->executePreparedQuery($sql, $params);
-
         $games = [];
 
-        foreach ($results as $result) {
-            $games[] = Game::createFromDb($result);
-        }
+//        $conn = $this->connect();
+//
+//        $stmt = $conn->prepare($sql);
+//        $stmt->bind_param('ss', $start, $end);
+//        $stmt->execute();
+//
+//        die(var_dump($stmt->fetch()));
+
+//        while ($stmt->fetch()) {
+//            die(var_dump($results));
+//        }
+
+//        foreach ($results as $result) {
+//            $games[] = Game::createFromDb($result);
+//        }
 
         return $games;
     }
@@ -114,7 +125,7 @@ class GamesModel extends BaseModel
                     {$values};
             ";
 
-            $returnValue = $this->executePreparedQuery($sql, $params);
+//            $returnValue = $this->executePreparedQuery($sql, $params);
         }
 
         return $returnValue;
